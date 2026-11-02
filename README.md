@@ -1,3 +1,7 @@
+# restaurante-stock-bot
+
+Leitor de cupons fiscais para automatizar a entrada de estoque em restaurantes com OCR.
+
 # Digitalização de cupons com PaddleOCR
 
 ## Parser melhorado
