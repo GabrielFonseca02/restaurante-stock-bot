@@ -2,7 +2,4 @@ __pycache__/
 *.py[cod]
 resultados/
 *.log
-*.jpg
-*.jpeg
-*.png
 debug_paddle.json
