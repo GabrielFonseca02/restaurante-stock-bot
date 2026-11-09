@@ -1,0 +1,3 @@
+# Dependências do leitor de NFC-e (consulta_nfce.py).
+aiohttp==3.14.5
+beautifulsoup4==4.15.0
