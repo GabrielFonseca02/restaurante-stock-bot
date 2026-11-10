@@ -1,0 +1,5 @@
+# Consulta de NFC-e e leitura de QR Codes.
+aiohttp==3.14.5
+beautifulsoup4==4.15.0
+opencv-python
+pyzbar
