@@ -3,3 +3,8 @@ __pycache__/
 resultados/
 *.log
 debug_paddle.json
+
+# Ambientes virtuais e caches locais.
+.venv/
+venv/
+.pytest_cache/
