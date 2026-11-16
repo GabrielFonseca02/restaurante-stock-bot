@@ -1,5 +1,4 @@
 from contextlib import suppress
-
 import cv2
 import pyzbar.pyzbar as pyzbar
 
@@ -8,33 +7,35 @@ if __package__:
 else:
     from tratamento_erros import ErroAplicacao, TratadorErros
 
-
+#funcao para ler o QR code da NFC-e usando a webcam
 def scanner():
     cap = None
     try:
         cap = cv2.VideoCapture(0)
         if not cap.isOpened():
-            raise ErroAplicacao("Não foi possível abrir a webcam.")
-
+            raise Exception("Não foi possível abrir a câmera.")
         while True:
             ok, frame = cap.read()
             if not ok or frame is None:
-                raise ErroAplicacao("Não foi possível capturar o vídeo.")
+                raise TratadorErros.ErroCapturaVideo("Não foi possível capturar o vídeo.")
 
-            cv2.imshow("Frame", frame)
-            for obj in pyzbar.decode(frame):
+            cv2.imshow("Frame",frame) 
+            decodedObjects = pyzbar.decode(frame)
+            for obj in decodedObjects:
                 if obj.type == "QRCODE":
                     try:
                         return obj.data.decode("utf-8")
                     except UnicodeDecodeError as erro:
-                        raise TratadorErros.qr_invalido() from erro
-
+                        raise TratadorErros.qr_invalido("não converteu o URL") from erro
+            
             key = cv2.waitKey(1) & 0xFF
+
+            #27 -> apertou esc para finalizar
             if key == 27 or cv2.getWindowProperty("Frame", cv2.WND_PROP_VISIBLE) < 1:
                 return None
     except cv2.error as erro:
         raise TratadorErros.falha_webcam() from erro
-    finally:
+    finally: 
         if cap is not None:
             with suppress(cv2.error):
                 cap.release()
