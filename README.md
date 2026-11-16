@@ -7,13 +7,13 @@ uma NFC-e.
 
 ```text
 restaurante-stock-bot/
-├── main.py                 # Entrada: consulta de NFC-e pela webcam
 ├── requirements.txt        # Dependências Python
 ├── src/                    # Código da aplicação
 │   ├── __init__.py
 │   ├── scanner.py          # Leitura pela webcam
-│   ├── consulta_nfce.py    # Funções de consulta e extração da NFC-e
-│   └── htmlhelper.py       # Funções auxiliares de HTML
+│   ├── consulta_nfce.py    # Entrada da consulta de NFC-e
+│   ├── htmlhelper.py       # Funções auxiliares de HTML
+│   └── tratamento_erros.py # Mensagens de erro da leitura e da consulta
 └── receipts/               # Imagens de cupons e QR Codes
 ```
 
@@ -40,11 +40,10 @@ python -m src.scanner
 Para ler o QR Code pela webcam e consultar os itens, execute na raiz:
 
 ```powershell
-python main.py
+python src/consulta_nfce.py
 ```
 
-Na raiz, também é possível usar `python -m src.consulta_nfce`. Se o terminal
-estiver dentro de `src`, use `python consulta_nfce.py`.
+Se o terminal estiver dentro de `src`, use `python consulta_nfce.py`.
 O scanner retorna a URL para a consulta e libera a câmera. Pressione Esc
 para cancelar. São aceitos os domínios `nfe.sefaz.go.gov.br` e
 `nfeweb.sefaz.go.gov.br`.

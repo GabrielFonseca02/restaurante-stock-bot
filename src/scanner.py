@@ -13,11 +13,11 @@ def scanner():
     try:
         cap = cv2.VideoCapture(0)
         if not cap.isOpened():
-            raise Exception("Não foi possível abrir a câmera.")
+            raise ErroAplicacao("Não foi possível abrir a câmera.")
         while True:
             ok, frame = cap.read()
             if not ok or frame is None:
-                raise TratadorErros.ErroCapturaVideo("Não foi possível capturar o vídeo.")
+                raise ErroAplicacao("Não foi possível capturar o vídeo.")
 
             cv2.imshow("Frame",frame) 
             decodedObjects = pyzbar.decode(frame)
@@ -26,7 +26,7 @@ def scanner():
                     try:
                         return obj.data.decode("utf-8")
                     except UnicodeDecodeError as erro:
-                        raise TratadorErros.qr_invalido("não converteu o URL") from erro
+                        raise TratadorErros.qr_invalido() from erro
             
             key = cv2.waitKey(1) & 0xFF
 
